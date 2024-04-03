@@ -1,0 +1,108 @@
+<html>
+<head>
+<h1>PRACTICE 2</h2>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+  }
+  #container {
+    max-width: 800px;
+    margin: 50px auto;
+    padding: 20px;
+    border: 2px solid #000;
+    border-radius: 10px;
+  }
+  .input-field {
+    width: 60px;
+    padding: 5px;
+    margin-right: 5px;
+    font-size: 16px;
+  }
+  #border-width {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+  #output {
+    margin-top: 20px;
+    padding: 10px;
+    border-radius: 5px;
+    border: 2px solid #000;
+  }
+</style>
+</head>
+<body>
+
+<div id="container">
+  <label for="border-red">Border R(0-255):</label>
+  <input type="number" id="border-red" class="input-field" min="0" max="255" value="0">
+  <label for="border-green">Border G(0-255):</label>
+  <input type="number" id="border-green" class="input-field" min="0" max="255" value="0">
+  <label for="border-blue">BOrder B(0-255):</label>
+  <input type="number" id="border-blue" class="input-field" min="0" max="255" value="0">
+
+  <label for="border-width">Border Width:</label>
+  <input type="range" min="0" max="20" value="2" id="border-width">
+  
+  <label for="text-red">Background R(0-255):</label>
+  <input type="number" id="text-red" class="input-field" min="0" max="255" value="255">
+  <label for="text-green">Background G(0-255):</label>
+  <input type="number" id="text-green" class="input-field" min="0" max="255" value="255">
+  <label for="text-blue">Background B(0-255):</label>
+  <input type="number" id="text-blue" class="input-field" min="0" max="255" value="255">
+
+  <p id="output">Paragraph to be altered</p>
+</div>
+
+<script>
+  const textRedInput = document.getElementById('text-red');
+  const textGreenInput = document.getElementById('text-green');
+  const textBlueInput = document.getElementById('text-blue');
+  const borderRedInput = document.getElementById('border-red');
+  const borderGreenInput = document.getElementById('border-green');
+  const borderBlueInput = document.getElementById('border-blue');
+  const borderWidthInput = document.getElementById('border-width');
+  const textbox = document.getElementById('output');
+
+  textRedInput.addEventListener('input', updateColor);
+  textGreenInput.addEventListener('input', updateColor);
+  textBlueInput.addEventListener('input', updateColor);
+  borderRedInput.addEventListener('input', updateColor);
+  borderGreenInput.addEventListener('input', updateColor);
+  borderBlueInput.addEventListener('input', updateColor);
+  borderWidthInput.addEventListener('input', updateBorderWidth);
+
+  function updateColor() {
+    const textRedValue = parseInt(textRedInput.value);
+    const textGreenValue = parseInt(textGreenInput.value);
+    const textBlueValue = parseInt(textBlueInput.value);
+    const borderRedValue = parseInt(borderRedInput.value);
+    const borderGreenValue = parseInt(borderGreenInput.value);
+    const borderBlueValue = parseInt(borderBlueInput.value);
+    
+    if (!isNaN(textRedValue) && !isNaN(textGreenValue) && !isNaN(textBlueValue) &&
+        !isNaN(borderRedValue) && !isNaN(borderGreenValue) && !isNaN(borderBlueValue)) {
+      if (textRedValue >= 0 && textRedValue <= 255 &&
+          textGreenValue >= 0 && textGreenValue <= 255 &&
+          textBlueValue >= 0 && textBlueValue <= 255 &&
+          borderRedValue >= 0 && borderRedValue <= 255 &&
+          borderGreenValue >= 0 && borderGreenValue <= 255 &&
+          borderBlueValue >= 0 && borderBlueValue <= 255) {
+        const textBGColor = `rgb(${textRedValue}, ${textGreenValue}, ${textBlueValue})`;
+        const borderColor = `rgb(${borderRedValue}, ${borderGreenValue}, ${borderBlueValue})`;
+        textbox.style.backgroundColor = textBGColor;
+        textbox.style.borderColor = borderColor;
+      }
+    }
+  }
+
+  function updateBorderWidth() {
+    const borderWidth = borderWidthInput.value + 'px';
+    textbox.style.borderWidth = borderWidth;
+  }
+</script>
+
+</body>
+</html>
+
